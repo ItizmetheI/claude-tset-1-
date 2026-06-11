@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>YOUR NAME — Creative Developer</title>
+  <meta name="description" content="Creative developer crafting immersive, WebGL-driven digital experiences." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Persistent cinematic 3D world (single canvas, scroll-scrubbed) -->
+  <div class="world-canvas" id="worldCanvas" aria-hidden="true"></div>
+
+  <!-- Grain overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+    <span class="cursor__label"></span>
+  </div>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__top">
+      <span class="preloader__tag">SYS // INIT</span>
+      <span class="preloader__tag preloader__count" id="preloaderCount">00</span>
+    </div>
+    <div class="preloader__center">
+      <h1 class="preloader__title">
+        <span>Loading</span>
+        <span class="preloader__title-accent">Reality</span>
+      </h1>
+    </div>
+    <div class="preloader__bar">
+      <div class="preloader__bar-fill" id="preloaderFill"></div>
+    </div>
+  </div>
+
+  <!-- Page transition curtain -->
+  <div class="curtain" aria-hidden="true">
+    <div class="curtain__panel"></div>
+    <div class="curtain__panel"></div>
+    <div class="curtain__panel"></div>
+  </div>
+
+  <!-- Fullscreen nav menu -->
+  <nav class="menu-overlay" id="menuOverlay">
+    <div class="menu-overlay__bg" id="menuCanvas"></div>
+    <div class="menu-overlay__content">
+      <div class="menu-overlay__links">
+        <a href="#hero" class="menu-link" data-menu-link><span class="menu-link__index">00</span><span class="menu-link__text">Intro</span></a>
+        <a href="#about" class="menu-link" data-menu-link><span class="menu-link__index">01</span><span class="menu-link__text">About</span></a>
+        <a href="#work" class="menu-link" data-menu-link><span class="menu-link__index">02</span><span class="menu-link__text">Work</span></a>
+        <a href="#capabilities" class="menu-link" data-menu-link><span class="menu-link__index">03</span><span class="menu-link__text">Capabilities</span></a>
+        <a href="#process" class="menu-link" data-menu-link><span class="menu-link__index">04</span><span class="menu-link__text">Process</span></a>
+        <a href="#contact" class="menu-link" data-menu-link><span class="menu-link__index">05</span><span class="menu-link__text">Contact</span></a>
+      </div>
+      <div class="menu-overlay__footer">
+        <div class="menu-overlay__col">
+          <span class="menu-overlay__label">Socials</span>
+          <a href="#" class="menu-overlay__sub">GitHub</a>
+          <a href="#" class="menu-overlay__sub">LinkedIn</a>
+          <a href="#" class="menu-overlay__sub">Twitter / X</a>
+          <a href="#" class="menu-overlay__sub">Dribbble</a>
+        </div>
+        <div class="menu-overlay__col">
+          <span class="menu-overlay__label">Based in</span>
+          <span class="menu-overlay__sub">Earth, Remote</span>
+          <span class="menu-overlay__label" style="margin-top:1.2rem">Local Time</span>
+          <span class="menu-overlay__sub" id="menuClock">--:--:--</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Top nav bar -->
+  <header class="topbar">
+    <a href="#hero" class="topbar__logo" data-magnetic>
+      <span class="topbar__logo-mark">YN</span>
+      <span class="topbar__logo-text">Your&nbsp;Name<sup>&reg;</sup></span>
+    </a>
+    <div class="topbar__status">
+      <span class="status-dot"></span>
+      <span>Available for select projects — 2026</span>
+    </div>
+    <button class="topbar__menu-btn" id="menuToggle" aria-label="Toggle menu" data-magnetic>
+      <span class="topbar__menu-text">Menu</span>
+      <div class="topbar__menu-icon">
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+  </header>
+
+  <!-- Scroll progress -->
+  <div class="scroll-progress" aria-hidden="true">
+    <div class="scroll-progress__track">
+      <div class="scroll-progress__fill" id="scrollFill"></div>
+    </div>
+  </div>
+
+  <main id="smooth-wrapper">
+    <div id="smooth-content">
+
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="hero">
+        <div class="hero__grid" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="hero__content">
+          <div class="hero__eyebrow reveal-up">
+            <span class="hero__eyebrow-dot"></span>
+            Creative Developer &amp; Digital Designer
+          </div>
+
+          <h1 class="hero__title">
+            <div class="hero__title-line" data-hero-line>
+              <span class="hero__title-word">Crafting</span>
+            </div>
+            <div class="hero__title-line" data-hero-line>
+              <span class="hero__title-word hero__title-word--outline">Immersive</span>
+            </div>
+            <div class="hero__title-line" data-hero-line>
+              <span class="hero__title-word">Realities</span>
+            </div>
+          </h1>
+
+          <div class="hero__footer">
+            <p class="hero__desc reveal-up">
+              I'm <strong>Your Name</strong> — a developer &amp; designer building
+              award-grade, WebGL-powered web experiences where motion, sound and
+              code meet. This portfolio is the proof of concept.
+            </p>
+            <div class="hero__cta reveal-up">
+              <a href="#work" class="btn btn--primary" data-magnetic>
+                <span>View Selected Work</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a href="#contact" class="btn btn--ghost" data-magnetic>
+                <span>Let's Talk</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__scroll" aria-hidden="true">
+          <span>Scroll</span>
+          <div class="hero__scroll-line"><div class="hero__scroll-progress"></div></div>
+        </div>
+
+        <div class="hero__coords" aria-hidden="true">
+          <span id="heroCoordX">X 0.000</span>
+          <span id="heroCoordY">Y 0.000</span>
+        </div>
+      </section>
+
+      <!-- ============ MARQUEE ============ -->
+      <div class="marquee marquee--border">
+        <div class="marquee__track">
+          <span>Frontend Engineering</span><span class="marquee__sep">&mdash;</span>
+          <span>WebGL &amp; Shaders</span><span class="marquee__sep">&mdash;</span>
+          <span>Motion Design</span><span class="marquee__sep">&mdash;</span>
+          <span>3D &amp; Three.js</span><span class="marquee__sep">&mdash;</span>
+          <span>Brand Systems</span><span class="marquee__sep">&mdash;</span>
+          <span>Frontend Engineering</span><span class="marquee__sep">&mdash;</span>
+          <span>WebGL &amp; Shaders</span><span class="marquee__sep">&mdash;</span>
+          <span>Motion Design</span><span class="marquee__sep">&mdash;</span>
+          <span>3D &amp; Three.js</span><span class="marquee__sep">&mdash;</span>
+          <span>Brand Systems</span><span class="marquee__sep">&mdash;</span>
+        </div>
+      </div>
+
+      <!-- ============ ABOUT ============ -->
+      <section class="about" id="about">
+        <div class="section-head">
+          <span class="section-head__index">01</span>
+          <h2 class="section-head__title">About</h2>
+        </div>
+
+        <div class="about__grid">
+          <div class="about__lead">
+            <p class="about__text reveal-words">
+              I design and build at the intersection of engineering and art direction —
+              translating brand ideas into tactile, three-dimensional interfaces that
+              respond to every scroll, cursor move and breath of motion.
+            </p>
+            <p class="about__text about__text--muted reveal-words">
+              Over the last several years I've partnered with studios and startups to
+              ship interfaces that don't just function — they perform. Every project
+              starts as a sketch, becomes a shader, and ends as an experience people
+              remember.
+            </p>
+          </div>
+
+          <div class="about__stats">
+            <div class="stat">
+              <span class="stat__value" data-counter="40">0</span><span class="stat__suffix">+</span>
+              <span class="stat__label">Projects shipped across web, product &amp; brand</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value" data-counter="6">0</span><span class="stat__suffix">yrs</span>
+              <span class="stat__label">Building interactive, performance-first interfaces</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value" data-counter="12">0</span><span class="stat__suffix">+</span>
+              <span class="stat__label">Awards &amp; nominations for design + development</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ WORK ============ -->
+      <section class="work" id="work">
+        <div class="section-head">
+          <span class="section-head__index">02</span>
+          <h2 class="section-head__title">Selected Work</h2>
+          <span class="section-head__count">04 Projects</span>
+        </div>
+
+        <div class="work__list">
+
+          <article class="project" data-project data-color="#7c5cff">
+            <div class="project__row">
+              <span class="project__index">01</span>
+              <h3 class="project__title">Nebula Commerce</h3>
+              <span class="project__year">2025</span>
+            </div>
+            <div class="project__meta">
+              <span class="project__tag">E-Commerce</span>
+              <span class="project__tag">WebGL Configurator</span>
+              <span class="project__tag">React / Three.js</span>
+              <span class="project__link">View Project →</span>
+            </div>
+          </article>
+
+          <article class="project" data-project data-color="#ff5c8a">
+            <div class="project__row">
+              <span class="project__index">02</span>
+              <h3 class="project__title">Prism Studio</h3>
+              <span class="project__year">2025</span>
+            </div>
+            <div class="project__meta">
+              <span class="project__tag">Agency Site</span>
+              <span class="project__tag">Custom Shaders</span>
+              <span class="project__tag">GSAP / WebGL</span>
+              <span class="project__link">View Project →</span>
+            </div>
+          </article>
+
+          <article class="project" data-project data-color="#5ce1ff">
+            <div class="project__row">
+              <span class="project__index">03</span>
+              <h3 class="project__title">Aurora OS</h3>
+              <span class="project__year">2024</span>
+            </div>
+            <div class="project__meta">
+              <span class="project__tag">SaaS Dashboard</span>
+              <span class="project__tag">Design System</span>
+              <span class="project__tag">TypeScript</span>
+              <span class="project__link">View Project →</span>
+            </div>
+          </article>
+
+          <article class="project" data-project data-color="#ffd95c">
+            <div class="project__row">
+              <span class="project__index">04</span>
+              <h3 class="project__title">Vertex Engine</h3>
+              <span class="project__year">2024</span>
+            </div>
+            <div class="project__meta">
+              <span class="project__tag">Creative Coding</span>
+              <span class="project__tag">Generative Art</span>
+              <span class="project__tag">GLSL</span>
+              <span class="project__link">View Project →</span>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Floating preview that follows cursor -->
+        <div class="project-preview" id="projectPreview" aria-hidden="true">
+          <div class="project-preview__canvas" id="projectPreviewCanvas"></div>
+        </div>
+      </section>
+
+      <!-- ============ CAPABILITIES ============ -->
+      <section class="capabilities" id="capabilities">
+        <div class="section-head">
+          <span class="section-head__index">03</span>
+          <h2 class="section-head__title">Capabilities</h2>
+        </div>
+
+        <div class="capabilities__grid">
+          <div class="capability">
+            <span class="capability__num">01</span>
+            <h3 class="capability__title">Engineering</h3>
+            <p class="capability__desc">React, TypeScript, Next.js, Node — building scalable, accessible front-ends with motion baked in from the start.</p>
+            <ul class="capability__tags">
+              <li>JavaScript / TS</li><li>React / Next.js</li><li>Node.js</li><li>Vite</li>
+            </ul>
+          </div>
+          <div class="capability">
+            <span class="capability__num">02</span>
+            <h3 class="capability__title">3D &amp; WebGL</h3>
+            <p class="capability__desc">Three.js scenes, custom GLSL shaders, post-processing pipelines and performance-tuned real-time graphics.</p>
+            <ul class="capability__tags">
+              <li>Three.js</li><li>GLSL / Shaders</li><li>WebGL / WebGPU</li><li>Blender</li>
+            </ul>
+          </div>
+          <div class="capability">
+            <span class="capability__num">03</span>
+            <h3 class="capability__title">Motion &amp; Interaction</h3>
+            <p class="capability__desc">Choreographed scroll narratives, micro-interactions and transitions using GSAP, Lenis and native APIs.</p>
+            <ul class="capability__tags">
+              <li>GSAP</li><li>Lenis</li><li>Framer Motion</li><li>SVG Animation</li>
+            </ul>
+          </div>
+          <div class="capability">
+            <span class="capability__num">04</span>
+            <h3 class="capability__title">Design Systems</h3>
+            <p class="capability__desc">Token-driven UI systems and brand identities that scale from product UI to marketing sites.</p>
+            <ul class="capability__tags">
+              <li>Figma</li><li>Design Tokens</li><li>Brand Identity</li><li>Prototyping</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PROCESS ============ -->
+      <section class="process" id="process">
+        <div class="section-head">
+          <span class="section-head__index">04</span>
+          <h2 class="section-head__title">Process</h2>
+        </div>
+
+        <div class="process__list">
+          <div class="process__item">
+            <div class="process__head">
+              <span class="process__num">01</span>
+              <h3 class="process__title">Discover</h3>
+              <span class="process__phase">Strategy &amp; Research</span>
+            </div>
+            <p class="process__desc">Understanding goals, audience and constraints — translating ambiguity into a clear creative + technical brief.</p>
+          </div>
+          <div class="process__item">
+            <div class="process__head">
+              <span class="process__num">02</span>
+              <h3 class="process__title">Design</h3>
+              <span class="process__phase">Art Direction &amp; Prototyping</span>
+            </div>
+            <p class="process__desc">Exploring visual direction, motion studies and interactive prototypes until the concept feels inevitable.</p>
+          </div>
+          <div class="process__item">
+            <div class="process__head">
+              <span class="process__num">03</span>
+              <h3 class="process__title">Develop</h3>
+              <span class="process__phase">Build &amp; Engineer</span>
+            </div>
+            <p class="process__desc">Component-driven development, custom shaders, and rigorous performance budgets across every device.</p>
+          </div>
+          <div class="process__item">
+            <div class="process__head">
+              <span class="process__num">04</span>
+              <h3 class="process__title">Deploy</h3>
+              <span class="process__phase">Launch &amp; Iterate</span>
+            </div>
+            <p class="process__desc">Shipping, monitoring real-world performance, and iterating with data-informed refinements post-launch.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <section class="contact" id="contact">
+        <div class="section-head">
+          <span class="section-head__index">05</span>
+          <h2 class="section-head__title">Contact</h2>
+        </div>
+
+        <div class="contact__main">
+          <a href="mailto:hello@yourname.dev" class="contact__email" data-magnetic data-text="hello@yourname.dev">
+            <span class="contact__email-text">hello@yourname.dev</span>
+          </a>
+          <p class="contact__sub">Currently available for freelance projects &amp; collaborations starting Q3 2026.</p>
+        </div>
+
+        <div class="contact__footer">
+          <div class="contact__socials">
+            <a href="#" data-magnetic>GitHub</a>
+            <a href="#" data-magnetic>LinkedIn</a>
+            <a href="#" data-magnetic>Twitter / X</a>
+            <a href="#" data-magnetic>Dribbble</a>
+          </div>
+          <div class="contact__copy">
+            <span>&copy; 2026 Your Name. All rights reserved.</span>
+            <span>Designed &amp; built from scratch — no templates.</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
